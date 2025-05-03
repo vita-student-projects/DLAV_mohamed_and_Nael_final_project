@@ -39,7 +39,7 @@ We tried complexifying the above architecture, but this simple architecture alwa
 
 ## Usage
 
-To load and use the model in a Colab notebook:
+To load and use the model in the notebook, run both cells:
 
 ```python
 # Upload the model weights (phase1_model.pth)
