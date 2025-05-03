@@ -34,8 +34,8 @@ The fused concatenated vector is passed through a Multi-Layer Perceptron (MLP) d
 We tried complexifying the above architecture, but this simple architecture always turned out to perform (slightly) better (on ADE):
 - We replaced the MLP decoder with an LSTM to predict the future trajectory, but it did not improve (on ADE), potentially because of the
    autoregressive nature of the LSTM and error accumulation.
-- Instead of concatenating the history, we tried passing it through our ViT jointly with the RGB image. The ViT was not pretrained, and the history and image had different positional embeddings to facilitate distinction. In the same idea, we now plan to use a (transformer) encoder-decoder architecture instead to make the distinction between the history and image more explicit; this will also allow us to use a pre-trained ViT to better encode the image (indivudually). We could not implement this before the Milestone 1 deadline, unfortunately.
-- We replaced the CNN with a pre-trained CNN (ResNet 50), and removed the last layer (layer 4) to increase the number of output channels and increase spatial dimensions to leave some food for the ViT. 
+- Instead of concatenating the history, we tried passing it through our ViT jointly with the RGB image. The ViT was not pretrained, and the history and image had different positional embeddings to facilitate distinction. In the same idea of trying to make the history and image "communicate", we now plan to use a (transformer) encoder-decoder architecture instead to make the distinction between the history and image more explicit; this will also allow us to use a pre-trained ViT to better encode the image (independantly of the history). We could not implement this before the Milestone 1 deadline, unfortunately.
+- We replaced the CNN with a pre-trained CNN (ResNet 50), and removed the last layer (layer 4) to increase the number of output channels and spatial dimensions of the output volume to leave some food for the ViT. 
 
 
 
