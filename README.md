@@ -35,7 +35,20 @@ We tried complexifying the above architecture, but this simple architecture alwa
 - We replaced the MLP decoder with an LSTM to predict the future trajectory, but it did not improve (on ADE), potentially because of the
    autoregressive nature of the LSTM and error accumulation.
 - Instead of concatenating the history, we tried passing it through our ViT jointly with the RGB image. The ViT was not pretrained, and the history and image had different positional embeddings to facilitate distinction. In the same idea of trying to make the history and image "communicate", we now plan to use a (transformer) encoder-decoder architecture instead to make the distinction between the history and image more explicit; this will also allow us to use a pre-trained ViT to better encode the image (independantly of the history). We could not implement this before the Milestone 1 deadline, unfortunately.
-- We replaced the CNN with a pre-trained CNN (ResNet 50), and removed the last layer (layer 4) to increase the number of output channels and spatial dimensions of the output volume to leave some food for the ViT. 
+- We replaced the CNN with a pre-trained CNN (ResNet 50), and removed the last layer (layer 4) to increase the number of output channels and spatial dimensions of the output volume to leave some food for the ViT.
+
+## Usage
+
+To load and use the model in a Colab notebook:
+
+```python
+# Upload the model weights (phase1_model.pth)
+from google.colab import files
+uploaded = files.upload()
+
+# Load the model
+model = DrivingPlanner()
+model.load_state_dict(torch.load("phase1_model.pth"))
 
 
 
