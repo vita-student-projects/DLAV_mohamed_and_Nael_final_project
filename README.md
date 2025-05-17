@@ -10,6 +10,8 @@ In this phase, we developed an end-to-end planning model that predicts the futur
 
 The model takes these inputs and outputs a sequence of predicted waypoints representing the future path of the vehicle.
 
+We got an ADE of 2.28 on Kaggle, but our model had achieved ~2.20 in collab.
+
 ---
 
 ## Model Architecture
@@ -66,6 +68,7 @@ model.load_state_dict(torch.load("phase1_model.pth"))
 
 The objectives are similar to those of Milestone 1, except there are additional inputs, namely a depth and semantic segmentation map, however
 we only predict the depth map as an auxiliary task.
+We got an ADE of 1.672 on Kaggle.
 Our model's weights are available here: https://drive.google.com/file/d/1o7rKxxR3v47y9Y1rnsRMCMH6yirJUneP/view?usp=sharing
 
 ### Model architecture
