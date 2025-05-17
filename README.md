@@ -64,12 +64,21 @@ model.load_state_dict(torch.load("phase1_model.pth"))
 
 ### Overview
 
-The objectives are similar to those of Milestone 1, except we improved our model's performance and the additional inputs are a depth and semantic segmentation map, however
+The objectives are similar to those of Milestone 1, except there are additional inputs, namely a depth and semantic segmentation map, however
 we only use the depth map as an auxiliary task.
 
 ### Model architecture
 
-### Image encoder
+### 1. Image encoder
+We use a (pre-trained) resnet-18 backbone to encode the RGB input image.
+### 2. History encoder
+We use a transformer decoder, where the queries from the history tokens attend to the keys and values from the ouput image tokens. This cross-attention mechanism allows the model
+to "look back-and-forth" between the history and image of the current scene, thus baking into the history tokens' representation some information from the image encoder output.
+### 3. Trajectory decoder
+Here we use a simple MLP decoder, since the hard work is done by the image and history encoders. Also, from experience from Milestone 1, an MLP decoder worked better for us than an autoregressive
+deocder (specifically an LSTM in our case), even though we might have just not implemented it correctly.
+### 4. Auxiliary task
+We use an upsampling network 
 
 
 
