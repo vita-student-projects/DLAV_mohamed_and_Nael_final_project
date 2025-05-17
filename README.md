@@ -66,6 +66,7 @@ model.load_state_dict(torch.load("phase1_model.pth"))
 
 The objectives are similar to those of Milestone 1, except there are additional inputs, namely a depth and semantic segmentation map, however
 we only predict the depth map as an auxiliary task.
+Our model's weights are available here: https://drive.google.com/file/d/1o7rKxxR3v47y9Y1rnsRMCMH6yirJUneP/view?usp=sharing
 
 ### Model architecture
 
@@ -93,6 +94,8 @@ We used:
    - Early checkpointing
    - AdamW optimizer (with regularization)
    - Dropout (in the transformer decoder and MLP components)
+
+### Experiments 
 
 
 
