@@ -65,7 +65,7 @@ model.load_state_dict(torch.load("phase1_model.pth"))
 ### Overview
 
 The objectives are similar to those of Milestone 1, except there are additional inputs, namely a depth and semantic segmentation map, however
-we only use the depth map as an auxiliary task.
+we only predict the depth map as an auxiliary task.
 
 ### Model architecture
 
