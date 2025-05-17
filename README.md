@@ -99,6 +99,20 @@ We used:
 We tried a few different image encoders, namely google's "google/vit-base-patch16-224" (which led to mediocre results), and Swin tiny (which got us to ADE ~1.75).
 Moreover, we tried fusing the depth map using an additional (transformer) decoder in between the CNN backbone encoder, and the history (transformer) decoder. However, we weren't able to improve the performance using this architecture, the increased complexity might have made it harder to converge. 
 
+## Usage
+
+To load and use the model in the notebook, run both cells:
+
+``` python
+use_depth_aux=True
+model_with_aux = DrivingPlanner(use_depth_aux=use_depth_aux)
+# Load the saved weights
+checkpoint_path = "/content/best_model_with_aux_171.pt"
+model_with_aux.load_state_dict(torch.load(checkpoint_path))
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model_with_aux.to(device)
+```
+
 
 
 
