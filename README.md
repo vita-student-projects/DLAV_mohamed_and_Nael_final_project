@@ -101,7 +101,7 @@ Moreover, we tried fusing the depth map using an additional (transformer) decode
 
 ## Usage
 
-To load and use the model in the notebook, run both cells:
+To load and train the model in the notebook, run both cells:
 
 ``` python
 use_depth_aux=True
@@ -112,6 +112,12 @@ model_with_aux.load_state_dict(torch.load(checkpoint_path))
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model_with_aux.to(device)
 ```
+and to train,
+``` python
+optimizer = AdamW(model_with_aux.parameters(), lr=2e-4, weight_decay=0.01)
+train(model_with_aux, train_loader, val_loader, optimizer, num_epochs=50,use_depth_aux=use_depth_aux, lambda_depth=0.05)
+```
+
 
 
 
