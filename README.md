@@ -78,7 +78,7 @@ to "look back-and-forth" between the history and image of the current scene, thu
 Here we use a simple MLP decoder, since the hard work is done by the image and history encoders. Also, from experience from Milestone 1, an MLP decoder worked better for us than an autoregressive
 deocder (specifically an LSTM in our case), even though we might have just not implemented it correctly.
 ### 4. Auxiliary task
-We use an upsampling network 
+We use an upsampling network to predict the depth map, and thus enhance the image representation. However, this didn't really lead to an improvement in performance (ADE).
 
 
 
