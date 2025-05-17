@@ -57,12 +57,14 @@ uploaded = files.upload()
 
 # Load the model
 model = DrivingPlanner()
-model.load_state_dict(torch.load("phase1_model.pth")) ´´´
+model.load_state_dict(torch.load("phase1_model.pth"))
+```
 
 ## Milestone 2
 
-### Overview:
-The objectives are similar to those of the Milestone 1, except we improved our model's performance and added 
+### Overview
+
+The objectives are similar to those of Milestone 1, except we improved our model's performance and added new features.
 
 
 
