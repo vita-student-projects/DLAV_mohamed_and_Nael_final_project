@@ -80,6 +80,15 @@ deocder (specifically an LSTM in our case), even though we might have just not i
 ### 4. Auxiliary task
 We use an upsampling network to predict the depth map, and thus enhance the image representation. However, this didn't really lead to an improvement in performance (ADE).
 
+### Augmentations and data post-processing
+We used:
+   - Spatial augmentations, namely rotations (we multiplied the history and future waypoints with the corresponding rotation matrix, for consistency) and horizontal flips (we flip history and         future waypoints as well). However, applying the equivalent transforms to the history and future waypoints didn't seem to improve performance consistently, thus further investigation is          required.
+   - Photometric augmentations, such as color jitter, gaussian blurs, and others. 
+### Training
+We used:
+   - (linear) warmup for 10% of total steps (i.e., batches), followed by a cosine LR decay.
+   - 
+
 
 
 
