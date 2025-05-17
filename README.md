@@ -57,7 +57,7 @@ uploaded = files.upload()
 
 # Load the model
 model = DrivingPlanner()
-model.load_state_dict(torch.load("phase1_model.pth"))
+model.load_state_dict(torch.load("phase1_model.pth")) ´´´
 
 ## Milestone 2
 
