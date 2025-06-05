@@ -158,6 +158,62 @@ Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BE
 We tried average pooling, a butterworth and elliptic filters, but this didn't yield any meaningful improvements in our case.
 
 
+## 🚗 Driving Planner Model (No Auxiliary Depth Map)
+
+This guide explains how to initialize, load, train, and validate the `DrivingPlanner` model **without using an auxiliary depth map**.
+
+---
+
+###  Initialization
+
+```python
+# NO AUXILIARY DEPTH MAP
+import torch
+from model import DrivingPlanner  # adjust the import path if necessary
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+use_depth_aux = False
+
+model_no_aux = DrivingPlanner(use_depth_aux=use_depth_aux)
+model_no_aux.to(device)
+```
+
+---
+
+###  Load Pretrained Model
+
+```python
+# LOAD MODEL
+model_no_aux.load_state_dict(torch.load(model_weights_path))
+```
+
+---
+
+###  Train the Model
+
+```python
+# TRAIN
+from torch.optim import AdamW
+
+optimizer = AdamW(model_no_aux.parameters(), lr=2e-4, weight_decay=0.01)
+train(model_no_aux, train_loader, val_loader, optimizer, num_epochs=50, use_depth_aux=use_depth_aux)
+```
+
+---
+
+###  Validate the Model
+
+```python
+# VALIDATE
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+ade, fde, mse = validate(model_no_aux, val_loader, device)
+print(f"Validation results for model with depth auxiliary loss: ADE: {ade:.4f}, FDE: {fde:.4f}, Traj MSE: {mse:.6f}")
+```
+
+---
+
+
 
 
 
