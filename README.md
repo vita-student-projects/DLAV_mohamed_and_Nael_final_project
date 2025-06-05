@@ -120,7 +120,11 @@ and to train,
 optimizer = AdamW(model_with_aux.parameters(), lr=2e-4, weight_decay=0.01)
 train(model_with_aux, train_loader, val_loader, optimizer, num_epochs=50,use_depth_aux=use_depth_aux, lambda_depth=0.05)
 ```
+## Milestone 3
+## Overview
+In this final phase, we used real-world data and focused only on the current scene image and the agent’s past trajectory to predict future motion—leaving out depth maps. At first, we got slightly better results than in Phase 2, reaching an ADE of around 1.63 on Colab using the same model plus data mixing.
 
+However, on Kaggle, the score was closer to 1.66. We tried different augmentations afterward but couldn’t match the earlier performance. Strangely, when re-running the same model that originally gave us 1.63, it now reports an ADE of ~1.3 on Colab, which seems like a bug, but we couldn’t figure out what caused it. Unfortunately, I didn’t save that exact version of the model at the time.
 
 
 
