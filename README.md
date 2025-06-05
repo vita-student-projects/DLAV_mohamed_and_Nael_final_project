@@ -130,10 +130,11 @@ Despite this, we were able to submit a working model to Kaggle and secured a pub
 ## Model architecture
 We are using the exact same architecture as in Phase 2, except we do not rely on depth maps anymore.
 
-### Augmentations and post-processing
+### Augmentations 
 * **Rotation removed**
   - Waypoints are in real-world coordinates, e.g. meters; image is in a different geometry with perspective.
-  - Initially, we tried applying a corresponding 2-D rotation to the waypoints, but results were still inconsistent.
+  - Initially, we tried applying a corresponding 2-D rotation to the waypoints (here, we also tried predicting the third dimension of the future trajectory as well;
+    it was relevant, since the dimension was no longer constant because of the rotation), but results were still inconsistent.
   - After a true 3-D rotation **X changes while Z stays constant**, so u = X/Z (formula is up to a constant) changes, where
     (u: horizontal position in image pixel-coordinates., X: horizontal position in real-world coordinates, Z: depth (axis perpendicular to the image plane))
   - Rotating only the 2-D image keeps the same pixels (i.e. u stays constant in the rotated basis), therefore image and waypoints no longer line up.
@@ -151,6 +152,10 @@ We are using the exact same architecture as in Phase 2, except we do not rely on
 
 ### Future idea
 Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BEV, pixels map directly to real-world coordinates, e.g. meters (up to a constant), so rotations would stay consistent.
+
+### Post-processing
+We tried average pooling, a butterworth and elliptic filters, but this didn't yield any meaningful improvements in our case.
+
 
 
 
