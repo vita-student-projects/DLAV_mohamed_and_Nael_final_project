@@ -157,13 +157,6 @@ Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BE
 ### Post-processing
 We tried average pooling, a butterworth and elliptic filters, but this didn't yield any meaningful improvements in our case.
 
-
-## 🚗 Driving Planner Model (No Auxiliary Depth Map)
-
-This guide explains how to initialize, load, train, and validate the `DrivingPlanner` model **without using an auxiliary depth map**.
-
----
-
 ###  Initialization
 
 ```python
