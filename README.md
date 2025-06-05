@@ -132,7 +132,6 @@ We are using the exact same architecture as in Phase 2, except we do not rely on
 
 ### Augmentations and post-processing
 * **Rotation removed**
-  After applying 
   - Waypoints are in real-world coordinates, e.g. meters; image is in a different geometry with perspective.
   - Initially, we tried applying a corresponding 2-D rotation to the waypoints, but results were still inconsistent.
   - After a true 3-D rotation **X changes while Z stays constant**, so u = X/Z (formula is up to a constant) changes, where
@@ -147,8 +146,8 @@ We are using the exact same architecture as in Phase 2, except we do not rely on
 
 * **Origin mismatch**  
   - Image origin = picture center.  
-  - Waypoint origin = ego vehicle's position.  Adds extra mis-alignment, since for instance, we
-    would be rotating the waypoints with respect to a different origin than we would be rotating the image.
+  - Waypoint origin = ego vehicle's position.  Adds extra mis-alignment, since for instance, we were
+    rotating the waypoints with respect to a different origin than we were rotating the image.
 
 ### Future idea
 Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BEV, pixels map directly to real-world coordinates, e.g. meters (up to a constant), so rotations would stay consistent.
