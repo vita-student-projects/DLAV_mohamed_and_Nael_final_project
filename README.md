@@ -161,9 +161,6 @@ We tried average pooling, a butterworth and elliptic filters, but this didn't yi
 
 ```python
 # NO AUXILIARY DEPTH MAP
-import torch
-from model import DrivingPlanner  # adjust the import path if necessary
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 use_depth_aux = False
 
