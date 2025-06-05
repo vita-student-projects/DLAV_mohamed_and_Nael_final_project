@@ -130,12 +130,30 @@ Despite this, we were able to submit a working model to Kaggle and secured a pub
 ## Model architecture
 We are using the exact same architecture as in Phase 2, except we do not rely on depth maps anymore.
 
-## Augmentations and post-processing
-We explored spatial augmentations like rotation, but didn’t observe consistent improvements. Since the trajectory waypoints are expressed in real-world coordinates, and the image plane operates in a different geometry (with perspective), applying augmentations only to the image without precisely adjusting the waypoints led to inconsistency. For this reason, we chose to not use translation and rotation augmentations. More specifically, the image/pixel-coordinate can be mapped to real-world/trajectory coordinates e.g., using u = X/Z, where u is the horizontal component in pixel-coordinate, X the horizontal component in real-world coordinate, and Z the depth component (perpendicular to the image). Doing a rotation in real-world coordinates and then "projecting" onto the image is not equivalent to rotating the already projected image, the pixel coordinates do NOT change there, but when rotating the image in real world Z stays constant, but X component changes as we rotated the x axis. therefore the corresponding pixel-coordinate isn't the same anymore, the transformations aren't equivalent. 
-To be precise, for the translation augmentation specifically, we could have done a search to find the proportionality constant between the pixel-coordinates and real-world coordinates as there aren't perspective problems there.
-Additionaly, another problem would be that the trajectory coordinates are expressed with respect to the origin which corresponds to the ego vehicle's current position. however, the image's origin is simply the image's center, and thus there might be a mismatch there.
-A possible solution (we didn't have time to implement it) would be to train a model to generate BEV (Bird's Eye Views) maps of the current scene in real-world coordinates, centered in the ego-vehicle's current position, therefore solving perspective problems.
-this is a text i produced in my own terms. i asked chatgpt to "make it more clear and concise".
+### Augmentations and post-processing
+* **Rotation removed**
+  After applying 
+  - Waypoints are in real-world coordinates, e.g. meters; image is in a different geometry with perspective.
+  - Initially, we tried applying a corresponding 2-D rotation to the waypoints, but results were still inconsistent.
+  - After a true 3-D rotation **X changes while Z stays constant**, so u = X/Z (formula is up to a constant) changes, where
+    (u: horizontal position in image pixel-coordinates., X: horizontal position in real-world coordinates, Z: depth (axis perpendicular to the image plane))
+  - Rotating only the 2-D image keeps the same pixels (i.e. u stays constant in the rotated basis), therefore image and waypoints no longer line up.
+
+* **Horizontal flip kept**  
+  - We also negate the waypoint y-coordinate, so it stays consistent; here, in u = X/Z, X stays constant in the flipped basis, thus no perspective issues.
+
+* **Translation removed**  
+  - Would need the exact pixel-to-meter scale, which we did not have time to estimate.
+
+* **Origin mismatch**  
+  - Image origin = picture center.  
+  - Waypoint origin = ego vehicle's position.  Adds extra mis-alignment, since for instance, we
+    would be rotating the waypoints with respect to a different origin than we would be rotating the image.
+
+### Future idea
+Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BEV, pixels map directly to real-world coordinates, e.g. meters (up to a constant), so rotations would stay consistent.
+
+
 
 
 
