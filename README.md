@@ -126,6 +126,7 @@ In this final phase, we worked with real-world data, using only the current scen
 
 On Kaggle, however, the same setup scored slightly worse (~1.66). Later experiments with augmentations didn’t help recover the initial result. Interestingly, when re-running the earlier model, I observed an unexpected ADE of ~1.3 on Colab, likely due to an evaluation inconsistency I couldn’t fully track down. Unfortunately, that earlier version of the notebook had already been converted and replaced in my workflow, so I wasn’t able to re-test it in time.
 Despite this, we were able to submit a working model to Kaggle and secured a public leaderboard score—placing us at rank 17.
+Here are the model weights: https://drive.google.com/file/d/1hRRMgnU26waVPF_G3ZwqKyKt3PFchkCM/view?usp=sharing
 
 ## Model architecture
 We are using the exact same architecture as in Phase 2, except we do not rely on depth maps anymore.
