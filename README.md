@@ -125,13 +125,17 @@ train(model_with_aux, train_loader, val_loader, optimizer, num_epochs=50,use_dep
 In this final phase, we worked with real-world data, using only the current scene image and the agent’s past trajectory to predict future motion—without relying on depth maps. Early on, we reached a promising ADE of ~1.63 on Colab using data mixing and the same architecture as before.
 
 On Kaggle, however, the same setup scored slightly worse (~1.66). Later experiments with augmentations didn’t help recover the initial result. Interestingly, when re-running the earlier model, I observed an unexpected ADE of ~1.3 on Colab, likely due to an evaluation inconsistency I couldn’t fully track down. Unfortunately, that earlier version of the notebook had already been converted and replaced in my workflow, so I wasn’t able to re-test it in time.
+Despite this, we were able to submit a working model to Kaggle and secured a public leaderboard score—placing us at rank 17.
 
 ## Model architecture
 We are using the exact same architecture as in Phase 2, except we do not rely on depth maps anymore.
 
 ## Augmentations and post-processing
-
-
+We explored spatial augmentations like rotation, but didn’t observe consistent improvements. Since the trajectory waypoints are expressed in real-world coordinates, and the image plane operates in a different geometry (with perspective), applying augmentations only to the image without precisely adjusting the waypoints led to inconsistency. For this reason, we chose to not use translation and rotation augmentations. More specifically, the image/pixel-coordinate can be mapped to real-world/trajectory coordinates e.g., using u = X/Z, where u is the horizontal component in pixel-coordinate, X the horizontal component in real-world coordinate, and Z the depth component (perpendicular to the image). Doing a rotation in real-world coordinates and then "projecting" onto the image is not equivalent to rotating the already projected image, the pixel coordinates do NOT change there, but when rotating the image in real world Z stays constant, but X component changes as we rotated the x axis. therefore the corresponding pixel-coordinate isn't the same anymore, the transformations aren't equivalent. 
+To be precise, for the translation augmentation specifically, we could have done a search to find the proportionality constant between the pixel-coordinates and real-world coordinates as there aren't perspective problems there.
+Additionaly, another problem would be that the trajectory coordinates are expressed with respect to the origin which corresponds to the ego vehicle's current position. however, the image's origin is simply the image's center, and thus there might be a mismatch there.
+A possible solution (we didn't have time to implement it) would be to train a model to generate BEV (Bird's Eye Views) maps of the current scene in real-world coordinates, centered in the ego-vehicle's current position, therefore solving perspective problems.
+this is a text i produced in my own terms. i asked chatgpt to "make it more clear and concise".
 
 
 
