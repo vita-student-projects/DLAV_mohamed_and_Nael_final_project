@@ -134,26 +134,23 @@ We are using the exact same architecture as in Phase 2, except we do not rely on
 
 ### Augmentations 
 * **Rotation removed**
-  - Waypoints are in real-world coordinates, e.g. meters; image is in a different geometry with perspective.
-  - Initially, we tried applying a corresponding 2-D rotation to the waypoints (here, we also tried predicting the third dimension of the future trajectory as well;
-    it was relevant, since the dimension was no longer constant because of the rotation), but results were still inconsistent.
-  - After a true 3-D rotation **X changes while Z stays constant**, so u = X/Z (formula is up to a constant) changes, where
-    (u: horizontal position in image pixel-coordinates., X: horizontal position in real-world coordinates, Z: depth (axis perpendicular to the image plane))
-  - Rotating only the 2-D image keeps the same pixels (i.e. u stays constant in the rotated basis), therefore image and waypoints no longer line up.
-
+  - Waypoints are in real-world coordinates, e.g. meters; image is in a different geometry (the 3d image is projected on the image plane).
+  - Initially, we tried applying a corresponding 2-D rotation (keeping the depth dimension constant) to the waypoints, but results were still inconsistent.
+  - Origin mismatch might partially explain this, but unlikely since it seems like a minor effect
+    
 * **Horizontal flip kept**  
-  - We also negate the waypoint y-coordinate, so it stays consistent; here, in u = X/Z, X stays constant in the flipped basis, thus no perspective issues.
-
+  - We also negate the waypoint y-coordinate, so it stays consistent
+    
 * **Translation removed**  
   - Would need the exact pixel-to-meter scale, which we did not have time to estimate.
 
 * **Origin mismatch**  
   - Image origin = picture center.  
   - Waypoint origin = ego vehicle's position.  Adds extra mis-alignment, since for instance, we were
-    rotating the waypoints with respect to a different origin than we were rotating the image.
+    rotating the waypoints around a different axis than the optical axis we were implicitely rotating the image around.
 
 ### Future idea
-Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position; in BEV, pixels map directly to real-world coordinates, e.g. meters (up to a constant), so rotations would stay consistent.
+Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position, so affine transformations would be more consistent. 
 
 ### Post-processing
 We tried average pooling, a butterworth and elliptic filters, but this didn't yield any meaningful improvements in our case.
