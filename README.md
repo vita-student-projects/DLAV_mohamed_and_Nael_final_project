@@ -147,7 +147,9 @@ We are using the exact same architecture as in Phase 2, except we do not rely on
 * **Origin mismatch**  
   - Image origin = picture center.  
   - Waypoint origin = ego vehicle's position.  Adds extra mis-alignment, since for instance, we were
-    rotating the waypoints around a different axis than the optical axis we were implicitely rotating the image around.
+    rotating the waypoints around a different axis than the optical axis we were implicitely rotating the image around; the model
+    can't learn a mapping to correct for this different axis, because it is not constante, the error is due to measurement errors
+    that vary through data points.
 
 ### Future idea
 Generate a Bird’s-Eye View (BEV) centered on the ego vehicle's position, so affine transformations would be more consistent. 
